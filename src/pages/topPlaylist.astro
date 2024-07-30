@@ -3,15 +3,17 @@ import Layout from '../layouts/Layout.astro';
 import NavBar from '../components/NavBar.astro';
 import MediaPlayer from '../components/MediaPlayer.astro';
 import WelcomeCard from '../components/WelcomeCard.astro';
+import TwentyPlayList from '../components/playlist_card/TwentyPlayList.astro';
 ---
 
 <Layout title="SpotifyAPP">
   <div class="flex flex-col h-screen">
     <NavBar />
     <div class="flex-1 overflow-y-auto" id="scrollable-content">
-      <WelcomeCard />
-      
+      <TwentyPlayList/>
     </div>
     <MediaPlayer />
   </div>
 </Layout>
+<script src="../scripts/MediaPlayer.js" type="module"></script>
+

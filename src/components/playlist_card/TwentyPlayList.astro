@@ -1,0 +1,73 @@
+---
+const songs = [
+  { id: 1, name: 'Overcompensate', artist: 'Twenty One Pilots', duration: '3:56', src: '/TOP  Overcompensate.mp3', album: 'Clancy'},
+  { id: 2, name: 'Ride', artist: 'Twenty One Pilots', duration: '3:34', src: '/TOP Ride.mp3', album: 'Blurryface'},
+  { id: 3, name: 'Heathens', artist: 'Twenty One Pilots', duration: '3:15', src: '/TOP-Heathens.mp3', album: 'Heathens'},
+  { id: 4, name: 'Routines In The Night', artist: 'Twenty One Pilots', duration: '3:22', src: '/TOP Routines In The Night.mp3', album: 'Clancy'},
+  { id: 5, name: 'The Craving - single ve...', artist: 'Twenty One Pilots', duration: '2:53', src: '/TOPTheCravingSingleVersion.mp3', album: 'Clancy'},
+  { id: 6, name: 'Stressed Out...', artist: 'Twenty One Pilots', duration: '2:53', src: '/TOP  Stressed Out.mp3', album: 'Blurryface'},
+];
+
+function getAlbumImage(album) {
+  switch (album.toLowerCase()) {
+    case 'clancy':
+      return '/imgs/clancy-top.jpeg';
+    case 'blurryface':
+      return '/imgs/blurryface-top.png';
+    case 'heathens':
+      return '/imgs/heathens-top.jpeg';
+    default:
+      return '/imgs/favicong.svg'; 
+  }
+}
+---
+
+<div class="bg-gradient-to-b from-red-900 to-neutral-900 text-white p-4 md:p-6">
+  <div class="flex flex-col md:flex-row items-start md:items-center mb-6">
+    <img src="/path-to-playlist-image.jpg" alt="This Is Twenty One Pilots" class="w-full md:w-48 h-48 object-cover mb-4 md:mb-0 md:mr-6">
+    <div>
+      <p class="text-sm uppercase">Playlist</p>
+      <h1 class="text-3xl md:text-4xl font-bold my-2">This Is Twenty One Pilots</h1>
+      <p class="text-sm">This is Twenty One Pilots. Los temas esenciales...</p>
+      <p class="text-sm mt-2">
+        <span class="text-green-500">Spotify</span> • 1,359,224 veces guardada • 41 canciones, cerca de 2 h 15 min
+      </p>
+    </div>
+  </div>
+  
+  <div class="flex items-center space-x-4 mb-6">
+    <button class="p-3 bg-green-500 rounded-full hover:bg-green-600 transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+      </svg>
+    </button>
+    <button class="p-2 border border-gray-400 rounded-full hover:bg-white/10 transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+      </svg>
+    </button>
+    <button class="p-2 text-gray-400 hover:text-white transition-colors">...</button>
+  </div>
+
+  <div class="space-y-4">
+    <div class="hidden md:flex items-center text-gray-400 text-sm">
+      <span class="w-8">#</span>
+      <span class="flex-grow">Título</span>
+      <span>⏱️</span>
+    </div>
+    {songs.map(({id, name, artist, duration, album, src}, index) => (
+      <div class="flex items-center space-x-4 hover:bg-white/10 p-2 rounded transition-colors song-item"
+           data-song-id={id} data-song-src={src} data-song-name={name} data-song-artist={artist} data-song-album={album}>
+        <span class="w-8 text-gray-400 hidden md:inline">{index + 1}</span>
+        <img src={getAlbumImage(album)} alt={name} class="w-12 h-12 object-cover" />
+        <div class="flex-grow min-w-0">
+          <p class="font-medium truncate">{name}</p>
+          <p class="text-sm text-gray-400 truncate">{artist}</p>
+        </div>
+        <span class="text-sm text-gray-400 hidden md:inline">{duration}</span>
+      </div>
+    ))}
+  </div>
+  <div class="text-transparent mt-12 h-24"></div>
+</div>
+

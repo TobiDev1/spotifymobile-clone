@@ -1,0 +1,109 @@
+---
+import BackToListen from "./cards_music/BackToListen.astro";
+import CardMusic from "./cards_music/CardMusic.astro";
+import ForYou from "./cards_music/ForYou.astro";
+
+function getRandomColor() {
+  const hue = Math.floor(Math.random() * 360);
+  return `hsl(${hue}, 70%, 50%)`;
+}
+const like_color = `bg-purple-500`
+const icon = ` <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" fill="white" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+        </svg>`
+
+const albums = [
+  { name: 'Twenty One Pilots', color: getRandomColor(), id: 'twenty-one-pilots'
+  },
+  { name: 'Your Likes', icon: icon, color: like_color },
+  { name: 'The Maybe Man', color: getRandomColor() },
+  { name: 'Imagine Dragons', color: getRandomColor() },
+  { name: 'Soda Stereo', color: getRandomColor() },
+  { name: 'Post Malone', color: getRandomColor() },
+];
+---
+
+<div class="bg-gradient-to-b from-gray-900 to-black text-white min-h-screen p-4">
+  <header class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold">Good morning</h1>
+    <div class="flex space-x-4">
+      <button class="text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+        </svg>
+      </button>
+      <button class="text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="grid grid-cols-2 gap-4">
+    {albums.map(({ name, color, icon, id }) => (
+      <div class="bg-gray-800 rounded-lg flex items-center p-2" data-album-id={id}>
+        <div 
+          class={`w-12 h-12 rounded-md mr-3 flex items-center justify-center ${icon ? `background-color: ${color}` : ''}`} 
+          style={color ? `background-color: ${color}` : ''}
+          
+        >
+          {icon ? (
+            <Fragment set:html={icon} />
+          ) : (
+            <span class="text-white font-bold text-xl">{name[0].toUpperCase()}</span>
+          )}
+        </div>
+        <span class="text-sm font-medium">{name}</span>
+      </div>
+    ))}
+  </div>
+
+
+  <CardMusic/>
+  <BackToListen/> 
+  <ForYou/>
+  <div class="text-transparent mt-12 h-24"></div>
+
+
+  <script>
+    function onClickOnAlbum(albumId) {
+      console.log(`clicked: ${albumId}`);
+
+      switch (albumId) {
+        case 'twenty-one-pilots':
+          location.href="topPlaylist";
+          break;
+        case 'imagine-dragons':
+          location.href= "dragonsPlaylist";
+          break;
+        case 'soda-stereo':
+          location.href= "sodaPlaylist";
+          break;
+        case 'post-malone':
+          location.href= "malonePlaylist";
+          break;
+        case 'the-maybe-man':
+          location.href= "maybePlaylist";
+          break;
+        case 'your-likes':
+          location.href= "likesPlaylist";
+          break;
+        default:
+          break;
+      }
+      return;
+    }
+  
+    document.addEventListener('DOMContentLoaded', () => {
+      const albumElements = document.querySelectorAll('[data-album-id]');
+      albumElements.forEach(element => {
+        element.addEventListener('click', () => {
+          const albumId = element.getAttribute('data-album-id');
+          onClickOnAlbum(albumId);
+        });
+      });
+    });
+  </script>
+</div>

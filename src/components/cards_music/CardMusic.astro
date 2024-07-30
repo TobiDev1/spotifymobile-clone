@@ -1,0 +1,41 @@
+---
+function getRandomColor() {
+  const hue = Math.floor(Math.random() * 360);
+  return `hsl(${hue}, 70%, 50%)`;
+}
+const like_color = `bg-purple-500`
+const icon = ` <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" fill="white" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+        </svg>`
+
+const albums = [
+  { name: 'Twenty One Pilots', color: getRandomColor() },
+  { name: 'Your Likes', icon: icon, color: like_color },
+  { name: 'The Maybe Man', color: getRandomColor() },
+  { name: 'Abel Pintos', color: getRandomColor() },
+  { name: 'Imagine Dragons', color: getRandomColor() },
+  { name: 'Soda Stereo', color: getRandomColor() },
+  { name: 'Post Malone', color: getRandomColor() },
+];
+---
+
+<div class="text-white mt-5 p-4">
+  <h2 class="text-xl font-bold mb-4">Recently played</h2>
+  <div class="flex overflow-x-auto space-x-4 pb-4">
+    {albums.map(({ name, color, icon }) => (
+      <div class="flex-shrink-0 w-32">
+        <div 
+          class={`w-32 h-32 rounded-md mb-2 flex items-center justify-center ${icon ? color : ''}`} 
+          style={!icon ? `background-color: ${color}` : ''}
+        >
+          {icon ? (
+            <Fragment set:html={icon} />
+          ) : (
+            <span class="text-white font-bold text-3xl">{name[0].toUpperCase()}</span>
+          )}
+        </div>
+        <p class="text-sm font-medium truncate">{name}</p>
+      </div>
+    ))}
+  </div>
+</div>
